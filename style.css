@@ -1,17 +1,19 @@
 body {
-    background-color: #f0f0f0;
+    background-color: #fed8aa;
 }
 h1 {
-    color: rgb(255,0, 0);
-    font-size: 25px;
-    font-family: 'Segoe UI';
-    background-color: black;
+    color: #1f5164;
+    text-align: center;
+}
+h2
+{
+    color: #1b2a30;
 }
 p {
     font-size: large;
     text-align: center;
     font-weight: bold;
-    color:rgb(76, 108, 153);
+    color:rgb(114, 145, 187);
 }
 img{
     max-width: 25%;
@@ -29,9 +31,16 @@ ul li {
 }
 
 .enviar{
-    border-radius: 5px;
-    background-color: rgb(0,0,255);
+    background-color: #E5FFEC;
+    color: #33312c;
+    border-radius: 10px;
 }
 .etiqueta{
-    background-color: blue;
+    background-color: #f09393;
+}
+.Registrar
+{
+    background-color: #5bf885;
+    color: #33312c;
+    border-radius: 10px;
 }
