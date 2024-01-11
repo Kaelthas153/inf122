@@ -1,6 +1,6 @@
 materia: inf 122
 
-nombre: Cael Mathew Cy¿uevas Alconini
+nombre: Cael Mathew Cuevas Alconini
 
 ----------
 
