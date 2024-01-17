@@ -1,0 +1,23 @@
+
+button {
+    width: 100px;
+    height: 100px;
+    font-family: Roboto, sans-serif;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    font-size: 50px;
+    color: #f5f5f6;
+    background-color: #FF872C;
+}
+.boton-reinciar
+{
+    font-size: 24px;
+    width: 225px;
+}
+
+button:hover {
+    
+    background-color: #DCDCE5;
+    color: #FF872C;
+}
