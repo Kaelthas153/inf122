@@ -1,0 +1,17 @@
+.App {
+
+  gap: 30px;
+  height: 100vh;
+}
+
+.login-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+.routes{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

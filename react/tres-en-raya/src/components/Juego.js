@@ -2,6 +2,8 @@ import React from 'react';
 import Tablero from './Tablero';
 import { useState } from 'react';
 import Historial from './Historial';
+import '../styles/Juego.css'
+import { useSpring, animated } from 'react-spring';
 
 function Juego() {
     const [historial, setHistorial] = useState([
@@ -14,30 +16,49 @@ function Juego() {
     const [cuadros, setCuadros] = useState(Array(9).fill(null));
     const [jugador, setJugador] = useState("X");
     const [ganador, setGanador] = useState(null);
+    
     const click = (i) => {
+        if (ganador || cuadros[i] !== null) {
+          // Si hay un ganador o el cuadro ya está marcado, no permitir más jugadas
+          return;
+        }
+    
         const nuevoMovimiento = historial.slice(0, nroMovimiento + 1);
-        console.log("nuevoMovimiento", nuevoMovimiento);
         const movimientoActual = nuevoMovimiento[nuevoMovimiento.length - 1];
-        console.log("movimientoActual", movimientoActual);
-        const cuadros = movimientoActual.cuadros.slice();
-        console.log("cuadrosTemp", cuadros);
-        if (cuadros[i] === null) {
-            cuadros[i] = jugador;
-            setCuadros(cuadros);
-            setJugador(jugador === "X" ? "O" : "X");
-            setHistorial(nuevoMovimiento.concat([{cuadros}]));
-            setNroMovimiento(nuevoMovimiento.length);
+        const cuadrosTemp = movimientoActual.cuadros.slice();
+    
+        if (cuadrosTemp[i] === null) {
+          cuadrosTemp[i] = jugador;
+          setCuadros(cuadrosTemp);
+          setJugador(jugador === 'X' ? 'O' : 'X');
+          setHistorial(nuevoMovimiento.concat([{ cuadros: cuadrosTemp }]));
+          setNroMovimiento(nuevoMovimiento.length);
+    
+          const ganadorActual = calcularGanador(cuadrosTemp);
+          if (ganadorActual) {
+            setGanador(ganadorActual);
+          }
         }
-        if (calcularGanador(cuadros) !== null) {
-            setGanador(calcularGanador(cuadros));
+      };
+    
+const saltarA = (movimiento) => {
+    setNroMovimiento(movimiento);
 
-        }
-    }
-    const saltarA = (movimiento) =>{
-        console.log("movimiento", movimiento);
-        setNroMovimiento(movimiento);
-        setJugador(jugador === "X" ? "O" : "X");
-    }
+    // Modificación para eliminar movimientos posteriores
+    setHistorial((prevHistorial) => {
+        const nuevoHistorial = prevHistorial.slice(0, movimiento + 1);
+        const ultimoMovimiento = nuevoHistorial[nuevoHistorial.length - 1];
+
+        // Actualiza los cuadros y el ganador al estado correspondiente
+        setCuadros(ultimoMovimiento.cuadros);
+        setGanador(calcularGanador(ultimoMovimiento.cuadros));
+
+        // Actualiza el jugador de acuerdo al estado de esa jugada
+        setJugador(ultimoMovimiento.cuadros.flat().filter(Boolean).length % 2 === 0 ? 'X' : 'O');
+
+        return nuevoHistorial;
+    });
+};
     const movimientoActual = historial[nroMovimiento];
     return (
         <div className="juego">
@@ -45,6 +66,7 @@ function Juego() {
                 <h2>{ganador ? `Ganador: ${ganador}` : `Próximo jugador: ${jugador}`}</h2>
                 <Tablero cuadros={cuadros} onClick={(i) => click(i)} />
             </div>
+            
             <Historial historial={historial} saltarA={saltarA} />
         </div>
     );
